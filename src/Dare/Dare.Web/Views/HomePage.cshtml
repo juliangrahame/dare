@@ -1,0 +1,64 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "_Layout.cshtml";
+}
+
+<h1>@Model.MainHeading</h1>
+@Model.MainText
+<h2>Carousel</h2>
+<div class="row">
+    <div class="col-sm">
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                @foreach (var item in Model.CarouselImages)
+                {
+                    <div style="text-align: center">
+                        <img src="@item.Url" class="slide-image" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm">
+        <h2>Videos</h2>
+        <div class="searchInput">
+            <input type="button" id="loadVideosButton" value="Load Videos" />
+            <input type="text" id="searchText" placeholder="Enter video search text" />
+            <span style="color: red; display: none">No text entered</span>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="video-wrapper">
+    <div class="row">
+        @if (Model.YouTubeVideos.Any())
+        {
+            foreach (var video in Model.YouTubeVideos)
+            {
+                <div class="col-sm-6 col-md-4 col-xl-3 video-card">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@video.VideoThumbnailUrl" />
+                        <div class="card-body" >
+                            <div> 
+                                <h5 class="card-title">@video.VideoTitle</h5>
+                                <p class="small" style="margin-bottom: 0;">@video.VideoText</p>
+                                <a class="card-link" href="https://www.youtube.com/watch?v=@video.VideoId">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-sm">
+                <p>No Videos Loaded</p>
+            </div>
+
+        }
+    </div>
+</div>
